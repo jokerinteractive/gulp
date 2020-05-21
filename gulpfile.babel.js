@@ -1,6 +1,6 @@
 import {src, dest, watch, parallel, series} from 'gulp';
 import del from 'del';
-import sass from 'gulp-sass';
+import less from 'gulp-less';
 import cssSort from 'gulp-csscomb';
 import csso from 'gulp-csso';
 import jsonMerge from 'gulp-merge-json';
@@ -32,8 +32,8 @@ const dirs = {
  */
 const path = {
   styles: {
-    root: `${dirs.src}/sass/`,
-    compile: `${dirs.src}/sass/style.scss`,
+    root: `${dirs.src}/less/`,
+    compile: `${dirs.src}/less/style.less`,
     save: `${dirs.dest}/css/`
   },
   views: {
@@ -60,7 +60,7 @@ const path = {
  * Основные задачи
  */
 export const styles = () => src(path.styles.compile)
-  .pipe(sass.sync().on('error', sass.logError))
+  .pipe(less())
   .pipe(cssSort())
   .pipe(dest(path.styles.save))
   .pipe(autoprefixer())
